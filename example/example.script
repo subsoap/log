@@ -17,8 +17,6 @@ function init(self)
 	log.c("Does this still work?", context)
 	
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.95, 0.95, 0.95, 1) } )
-	--pprint(debug)
-	--pprint(debug.getinfo(1, "Sl"))
 end
 
 function final(self)

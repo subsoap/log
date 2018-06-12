@@ -49,9 +49,6 @@ function M.set_level(level)
 end
 
 -- TRACE
--- Meant for each step of a function, enable trace to have super granular log information
--- Show events and information leading up to a failure
--- Logs a tremendous amount of information if setup
 function M.t(message, tag)
 	local level = M.TRACE
 	M.save_log_line(message, level, tag, debug_level)
@@ -63,8 +60,6 @@ function M.trace(message, tag)
 end
 
 -- DEBUG
--- Meant for logging as much related information as possible when an error occurs
--- Show why a failure occurs
 function M.d(message, tag)
 	local level = M.DEBUG
 	local debug_level = 1
