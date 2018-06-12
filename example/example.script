@@ -1,9 +1,22 @@
-local log = require("log.log")
+log = require("log.log")
+local context = "example_script"
 
 function init(self)
+	log.toggle_verbose()
+	log.toggle_print()
+	--log.save_log_line("hello")
+	--log.save_log_line("hello2", log.INFO)
+	--log.save_log_line("hello3", log.DEBUG)
+	--log.save_log_line("hello4", log.CRITICAL)
+	
+	log.c("Does this work?", context)
+	log.use_tag_whitelist = true
+	log.add_to_whitelist("example_script", true)
+	log.c("Does this still work?", context)
 	
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.95, 0.95, 0.95, 1) } )
-	
+	--pprint(debug)
+	--pprint(debug.getinfo(1, "Sl"))
 end
 
 function final(self)
