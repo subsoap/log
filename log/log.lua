@@ -127,6 +127,8 @@ end
 
 
 function M.save_log_line(line, level, tag, debug_level)
+	if M.logging == false then return false end
+	
 	debug_level = debug_level or 0
 	
 	level = level or M.NONE
