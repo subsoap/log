@@ -6,7 +6,6 @@ M.verbose = false
 M.logging = true
 M.logging_filename = "app.log"
 M.sysinfo = sys.get_sys_info()
-M.callback_function = nil
 M.use_date_for_filename = true
 M.use_tag_whitelist = false
 M.disable_logging_for_release = true
@@ -37,12 +36,9 @@ M.log_level_names =
 	[60] = "CRIT  "
 	}
 
-
 function M.add_to_whitelist(tag, state)
 	M.tag_whitelist[tag] = state
 end
-	
-
 
 -- Sets the minimum log level to log, default is log.DEBUG
 function M.set_level(level)
@@ -124,8 +120,6 @@ function M.critical(message, tag)
 	local debug_level = 1
 	M.save_log_line(message, level, tag, debug_level)
 end
-
-
 
 function M.save_log_line(line, level, tag, debug_level)
 	if M.logging == false then return false end
