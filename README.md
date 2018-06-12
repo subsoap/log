@@ -117,4 +117,10 @@ You can change the default dateless log filename too.
 log.logging_filename = "app.log"
 ```
 
+You can manually disable all logging with
+
+```
+log.logging = false
+```
+
 ![Log](log_logo.png)
