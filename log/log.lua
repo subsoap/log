@@ -3,7 +3,6 @@ local M = {}
 M.appname = "DefoldLog"
 M.print = false
 M.verbose = false
-M.initialized = false
 M.logging = true
 M.logging_filename = "app.log"
 M.sysinfo = sys.get_sys_info()
