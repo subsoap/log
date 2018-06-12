@@ -46,6 +46,75 @@ There are muliple built in log levels. You are able to set the minimum log level
 log.set_log_level(log.INFO) -- disable logging for all log levels below log.INFO
 ```
 
+The available builtin log levels are from lowest to highest:
+
+```
+log.t(message, tag)
+log.trace(message, tag)
+log.TRACE = 10
+
+log.d(message, tag)
+log.debug(message, tag)
+log.DEBUG = 20
+
+log.i(message, tag)
+log.info(message, tag)
+log.INFO = 30
+
+log.w(message, tag)
+log.warning(message, tag)
+log.WARNING = 40
+
+log.e(message, tag)
+log.error(message, tag)
+log.ERROR = 50
+
+log.c(message, tag)
+log.critical(message, tag)
+log.CRITICAL = 60
+```
+
+If you save a log line directly without using a log level function you can manually specifiy the log level. The debug_level should be left to be nil or 0 if log.save_log_line is called directly.
+
+```
+log.save_log_line(line, level, tag, debug_level)
+```
+
 When you log a message you can include an optional tag. Tags can be used to whitelist (or blacklist) certain log information types. For example, you may only want to allow logging from one section of your game while you are doing debugging, you can disable all other log tags.
+
+To enable the tag whitelist and add a tag to the whitelist use
+
+```
+log.use_tag_whitelist = false
+log.add_to_whitelist(tag, state)
+```
+
+You can also modify the table holding the whitelist data directly.
+
+```
+log.tag_whitelist = 
+{
+	["none"] = false,
+	["msg_proxy"] = true
+}
+```
+
+By default, all logging is disabled when you bundle a release build. To force logging to continue in release builds then you must set this value to false
+
+```
+log.disable_logging_for_release = false
+```
+
+By default, dates are used for log filenames. If you wish to store logs within a single file then disable using dates for filenames.
+
+```
+log.use_date_for_filename = false
+```
+
+You can change the default dateless log filename too.
+
+```
+log.logging_filename = "app.log"
+```
 
 ![Log](log_logo.png)
