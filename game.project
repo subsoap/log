@@ -1,0 +1,19 @@
+[bootstrap]
+main_collection = /example/main.collectionc
+
+[script]
+shared_state = 1
+
+[project]
+title = Log
+
+[library]
+include_dirs = log
+
+[input]
+game_binding = /example/input/game.input_bindingc
+
+[display]
+width = 1024
+height = 768
+
