@@ -10,6 +10,8 @@ M.sysinfo = sys.get_sys_info()
 M.callback_function = nil
 M.use_date_for_filename = true
 M.use_tag_whitelist = false
+M.disable_logging_for_release = true
+M.is_debug = sys.get_engine_info().is_debug
 
 M.tag_whitelist = 
 {
@@ -128,6 +130,8 @@ end
 
 function M.save_log_line(line, level, tag, debug_level)
 	if M.logging == false then return false end
+
+	if M.disable_logging_for_release and M.is_debug == false then return false end
 	
 	debug_level = debug_level or 0
 	
