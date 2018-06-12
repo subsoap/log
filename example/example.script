@@ -2,10 +2,12 @@ log = require("log.log")
 local context = "example_script"
 
 function init(self)
+	label.set_text("#label", "Check the example log at ... " .. log.get_logging_path())
+	
 	log.toggle_verbose()
 	log.toggle_print()
-	--log.save_log_line("hello")
-	--log.save_log_line("hello2", log.INFO)
+	log.save_log_line("hello")
+	log.save_log_line("hello2", log.INFO)
 	--log.save_log_line("hello3", log.DEBUG)
 	--log.save_log_line("hello4", log.CRITICAL)
 	

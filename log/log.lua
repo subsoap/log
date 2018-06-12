@@ -53,69 +53,87 @@ end
 -- Show events and information leading up to a failure
 -- Logs a tremendous amount of information if setup
 function M.t(message, tag)
-	M.trace(message, tag)
+	local level = M.TRACE
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.trace(message, tag)
 	local level = M.TRACE
-	M.save_log_line(message, level, tag)
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 -- DEBUG
 -- Meant for logging as much related information as possible when an error occurs
 -- Show why a failure occurs
 function M.d(message, tag)
-	M.debug(message, tag)
+	local level = M.DEBUG
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.debug(message, tag)
 	local level = M.DEBUG
-	M.save_log_line(message, level, tag)	
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 -- INFO
 function M.i(message, tag)
-	M.info(message, tag)
+	local level = M.INFO
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.info(message, tag)
 	local level = M.INFO
-	M.save_log_line(message, level, tag)		
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 -- WARNING
 function M.w(message, tag)
-	M.warning(message, tag)
+	local level = M.WARNING
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.warning(message, tag)
 	local level = M.WARNING
-	M.save_log_line(message, level, tag)		
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 -- ERROR
 function M.e(message, tag)
-	M.error(message, tag)
+	local level = M.ERROR
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.error(message, tag)
 	local level = M.ERROR
-	M.save_log_line(message, level, tag)		
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 -- CRITICAL
 function M.c(message, tag)
-	M.critical(message, tag)
+	local level = M.CRITICAL
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 function M.critical(message, tag)
 	local level = M.CRITICAL
-	M.save_log_line(message, level, tag)		
+	local debug_level = 1
+	M.save_log_line(message, level, tag, debug_level)
 end
 
 
 
-function M.save_log_line(line, level, tag)
+function M.save_log_line(line, level, tag, debug_level)
+	debug_level = debug_level or 0
+	
 	level = level or M.NONE
 	if level < M.logging_level then return false end
 
@@ -137,7 +155,7 @@ function M.save_log_line(line, level, tag)
 	local body = ""
 	
 	if debug then
-		local info = debug.getinfo(2, "Sl") -- https://www.lua.org/pil/23.1.html
+		local info = debug.getinfo(2 + debug_level, "Sl") -- https://www.lua.org/pil/23.1.html
 		local short_src = info.short_src
 		local line_number = info.currentline		
 		body = short_src .. ":" .. line_number .. ":"
