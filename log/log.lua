@@ -10,6 +10,7 @@ M.use_date_for_filename = true
 M.use_tag_whitelist = false
 M.disable_logging_for_release = true
 M.is_debug = sys.get_engine_info().is_debug
+M.delete_old_logs_days = 10
 M.__ID = "subsoap/log" -- this is so sister modules can identify a global log
 M.__VERSION = 1 -- if this number changes it means there was a breaking change
 
@@ -230,6 +231,7 @@ function M.delete_old_logs(days)
 	if not lfs then print("Log: LFS is required (for now) to use log.prune_old_logs(). Check the readme!"); return false end
 	if not M.use_date_for_filename then print("Log: log.use_date_for_filename must be true to use log.prune_old_logs()!"); return false end
 
+	local days_to_log_expire = days or M.delete_old_logs_days
 	local time_now = os.time()
 	local max_time_difference = 86400 * days_to_log_expire
 	local directory = M.get_logging_dir_path()
