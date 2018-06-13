@@ -20,6 +20,9 @@ function init(self)
 	log.critical("This would also be a critical log message.")
 	
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.95, 0.95, 0.95, 1) } )
+
+	log.delete_old_logs(1)
+	
 end
 
 function final(self)

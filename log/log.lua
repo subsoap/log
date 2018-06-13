@@ -216,4 +216,73 @@ function M.get_logging_path()
 	return sys.get_save_file(M.appname, M.logging_filename)
 end
 
+function M.get_logging_dir_path()
+	appname_check()
+	if M.sysinfo.system_name == "Linux" then
+		-- For Linux we must modify the default path to make Linux users happy
+		local appname = "config/" .. tostring(M.appname)
+		return sys.get_save_file(appname, "")
+	end
+	return sys.get_save_file(M.appname, "")
+end
+
+function M.delete_old_logs(days)
+	if not lfs then print("Log: LFS is required (for now) to use log.prune_old_logs(). Check the readme!"); return false end
+	if not M.use_date_for_filename then print("Log: log.use_date_for_filename must be true to use log.prune_old_logs()!"); return false end
+
+	local time_now = os.time()
+	local max_time_difference = 86400 * days_to_log_expire
+	local directory = M.get_logging_dir_path()
+	for file in lfs.dir(directory) do
+		if file ~= "." and file ~= ".." then
+			local delete_file_ok = true
+			local it = 0
+			local date = ""
+			local filetype = ""
+			-- break filename of NNNN-NN-NN.log in half at the .
+			for i in string.gmatch(file, "[^%.]+") do
+				it = it + 1
+				if it == 1 then
+					date = i
+				elseif it == 2 then
+					if i == "log" then
+						filetype = "log"
+					end
+				elseif it >= 3 then
+					-- mismatch
+					delete_file_ok = false					
+				end
+			end
+			if filetype == "log" then 
+				local xyear = 0
+				local xmonth = 0
+				local xday = 0
+				it = 0
+				-- break (hopefully) date string NNNN-NN-NN into dates by the -
+				for i in string.gmatch(date, "[^%-]+") do
+					it = it + 1
+					if it == 1 then
+						xyear = tonumber(i)
+					elseif it == 2 then
+						xmonth = tonumber(i)
+					elseif it == 3 then
+						xday = tonumber(i)
+					elseif it >= 4 then
+						-- mismatch
+						delete_file_ok = false
+					end
+
+				end
+				local timestamp = os.time({year = xyear, month = xmonth, day = xday, hour = 0, min = 0, sec = 0, isdst=false})
+				if timestamp ~= nil and delete_file_ok then
+					if time_now - timestamp >= max_time_difference then
+						if M.verbose then print("Log: log.delete_old_logs " .. file .. " is old - deleted!") end	
+						os.remove(directory .. file)
+					end
+				end
+			end
+		end
+	end	
+end
+
 return M

@@ -18,6 +18,12 @@ Or require it globally in your main entrypoint so that all of your scripts can u
 log = require("log.log")
 ```
 
+There is an optional dependency for LFS which is currently required if you would like to be able to auto-prune old log files. LFS is a native extension so could add to build time if you are not already using a native extension. This can be ignored if you don't care about auto-pruning of old log files.
+
+	https://github.com/britzl/defold-lfs
+
+	https://github.com/britzl/defold-lfs/archive/master.zip
+
 ## Usage
 
 First set your appname. Your appname determines a relative OS directory for storing your app's logs.
@@ -121,6 +127,12 @@ You can manually disable all logging with
 
 ```
 log.logging = false
+```
+
+You can delete old log files (such as on the init of your main entrypoint) based on the number of days you wish to keep logs around. This requires the LFS extension to be included (for now). This function will only delete logs which match the pattern of NNNN-NN-NN.log or it will not delete. If you don't set the number of days then it will default to log.delete_old_logs_days which by default is 10 days.
+
+```
+log.delete_old_logs(days)
 ```
 
 ![Log](log_logo.png)

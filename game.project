@@ -6,6 +6,7 @@ shared_state = 1
 
 [project]
 title = Log
+dependencies = https://github.com/britzl/defold-lfs/archive/master.zip
 
 [library]
 include_dirs = log
