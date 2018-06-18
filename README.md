@@ -26,6 +26,12 @@ There is an optional dependency for LFS which is currently required if you would
 
 ## Usage
 
+If you wish to have log lines be printed to the Defold console you must toggle console printing in your main file. Otherwise log lines will only be added to the log files.
+
+```
+log.toggle_print()
+```
+
 First set your appname. Your appname determines a relative OS directory for storing your app's logs.
 
 ```
