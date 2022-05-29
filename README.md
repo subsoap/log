@@ -55,7 +55,7 @@ Here is what the above lines would log to your log file. Note that it inclues th
 There are muliple built in log levels. You are able to set the minimum log level so that any messages below that log level are not logged.
 
 ```
-log.set_log_level(log.INFO) -- disable logging for all log levels below log.INFO
+log.set_level(log.INFO) -- disable logging for all log levels below log.INFO
 ```
 
 The available builtin log levels are from lowest to highest:
