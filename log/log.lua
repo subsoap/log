@@ -209,11 +209,6 @@ function M.get_logging_path()
 		local timestamp = os.time()
 		M.logging_filename = os.date('%Y-%m-%d', ts) .. ".log"
 	end
-	if M.sysinfo.system_name == "Linux" then
-		-- For Linux we must modify the default path to make Linux users happy
-		local appname = "config/" .. tostring(M.appname)
-		return sys.get_save_file(appname, M.logging_filename)
-	end
 	return sys.get_save_file(M.appname, M.logging_filename)
 end
 
