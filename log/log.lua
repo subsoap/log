@@ -12,7 +12,7 @@ M.disable_logging_for_release = true
 M.is_debug = sys.get_engine_info().is_debug
 M.delete_old_logs_days = 10
 M.__ID = "subsoap/log" -- this is so sister modules can identify a global log
-M.__VERSION = 1 -- if this number changes it means there was a breaking change
+M.__VERSION = 2 -- if this number changes it means there was a breaking change
 
 M.tag_whitelist = 
 {
